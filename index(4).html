@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Платформа по каучуковым нормам — MVP</title>
+  <meta name="description" content="Статический MVP платформы по каучуковым нормам: нормы, судебная практика, фильтры, кейсы и обучающий модуль." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-grid">
+      <div>
+        <div class="eyebrow">MVP · статическая версия для публикации</div>
+        <h1>Платформа по «каучуковым» нормам</h1>
+        <p class="subtitle">Реальные нормы → реальные судебные акты и обзоры → исход и мотивировка</p>
+      </div>
+      <div class="header-actions">
+        <button id="themeToggle" class="ghost-btn">Сменить тему</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap page-grid">
+    <section class="hero card">
+      <div class="hero-copy">
+        <h2>Цифровой каталог с привязкой «формулировка — практика — объяснение»</h2>
+        <p>
+          Это демонстрационный сайт, собранный как основа будущей платформы: в нём уже есть каталог
+          ключевых каучуковых норм, опорная судебная практика высших судов, фильтрация, карточки кейсов,
+          учебные сценарии и прототип AI-объяснения.
+        </p>
+        <div class="stats" id="stats"></div>
+      </div>
+      <div class="hero-note">
+        <div class="mini-card">
+          <strong>Что внутри</strong>
+          <ul>
+            <li>5–10 основных норм</li>
+            <li>реальные акты ВС РФ и КС РФ</li>
+            <li>поиск по формулировкам и мотивировке</li>
+            <li>учебные кейсы и объяснения</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="controls card">
+      <div class="search-row">
+        <input id="searchInput" type="text" placeholder="Поиск по норме, делу, мотивировке, ключевым словам" />
+        <button id="resetBtn">Сбросить</button>
+      </div>
+      <div class="filters">
+        <select id="branchFilter"><option value="">Все отрасли</option></select>
+        <select id="jurisdictionFilter"><option value="">Все юрисдикции</option></select>
+        <select id="outcomeFilter"><option value="">Все исходы</option></select>
+        <select id="interpretationFilter"><option value="">Все типы толкования</option></select>
+        <select id="yearFilter"><option value="">Все годы</option></select>
+      </div>
+    </section>
+
+    <section class="tabs">
+      <button class="tab-btn active" data-tab="catalog">Каталог</button>
+      <button class="tab-btn" data-tab="learning">Обучение</button>
+      <button class="tab-btn" data-tab="ai">AI-модуль</button>
+      <button class="tab-btn" data-tab="architecture">Архитектура</button>
+    </section>
+
+    <section id="catalog" class="tab-panel active">
+      <div class="results-head">
+        <div>
+          <h3>Связки норм и судебной практики</h3>
+          <p class="muted">Каталог построен на демонстрационном наборе реальных норм и опорных судебных актов.</p>
+        </div>
+        <p id="resultsCount" class="results-count"></p>
+      </div>
+      <div id="results" class="results-grid"></div>
+    </section>
+
+    <section id="learning" class="tab-panel">
+      <div class="card">
+        <h3>Обучающий сценарий</h3>
+        <p class="muted">Выберите предполагаемый вывод и сравните его с тем, как вопрос был решён в практике.</p>
+        <div id="lessonBox"></div>
+      </div>
+    </section>
+
+    <section id="ai" class="tab-panel">
+      <div class="card">
+        <h3>AI-модуль объяснения практики</h3>
+        <p class="muted">
+          Это не юридическое заключение, а демонстрационная логика на JavaScript: она собирает
+          ключевые признаки спора и формирует понятное объяснение, почему суд мог пойти по одному из путей толкования.
+        </p>
+        <div class="ai-grid">
+          <select id="aiNorm"></select>
+          <select id="aiOutcome"></select>
+          <select id="aiInterpretation"></select>
+          <button id="aiExplainBtn">Показать объяснение</button>
+        </div>
+        <div id="aiOutput" class="ai-output"></div>
+      </div>
+    </section>
+
+    <section id="architecture" class="tab-panel">
+      <div class="card prose">
+        <h3>Архитектура цифровой платформы</h3>
+        <p>
+          Платформа делится на три слоя: <strong>база знаний</strong>, <strong>поиск и фильтры</strong>,
+          <strong>обучающий слой</strong>. В полном продукте именно эта логика позволяет переходить
+          от нормы к делу, от дела — к мотивировке, а затем — к учебному сценарию или тесту.
+        </p>
+        <div class="arch-grid">
+          <article>
+            <h4>1. Хранилище данных</h4>
+            <ul>
+              <li>нормы: текст, отрасль, юрисдикция, тип каучуковости, ключевые слова;</li>
+              <li>судебные акты: суд, дата, номер, фабула, исход, выдержки мотивировки;</li>
+              <li>связи: какая норма использована в каком деле и как именно она истолкована.</li>
+            </ul>
+          </article>
+          <article>
+            <h4>2. Поиск и фильтрация</h4>
+            <ul>
+              <li>поиск по формулировкам и мотивировке;</li>
+              <li>фильтры по отрасли, суду, году, исходу, типу толкования;</li>
+              <li>быстрый переход к карточке конкретного кейса.</li>
+            </ul>
+          </article>
+          <article>
+            <h4>3. Обучающий слой</h4>
+            <ul>
+              <li>кейсы с вопросом и разбором;</li>
+              <li>тесты «как бы вы решили спор»;</li>
+              <li>объяснение мотивировки простым языком через AI-модуль.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="caseModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-backdrop" data-close="true"></div>
+    <div class="modal-dialog card">
+      <button class="modal-close" id="modalClose" aria-label="Закрыть">×</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <strong>Важно:</strong> это демонстрационный MVP. Перед использованием в учебных или коммерческих целях
+        набор практики нужно регулярно обновлять и расширять.
+      </div>
+      <div class="muted">Подходит для публикации на GitHub Pages, Netlify и обычном хостинге.</div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
